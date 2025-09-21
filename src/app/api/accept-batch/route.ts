@@ -4,7 +4,7 @@ import axios from "axios";
 import { RowDataPacket } from "mysql2/promise";
 
 const BOT_TOKEN = process.env.BOT_TOKEN || "8373923696:AAHxWLeCqoO0I-ZCgNCgn6yJTi6JJ-wOU3I";
-const ADMIN_CHAT_ID = process.env.ADMIN_CHAT_ID || "-1003014693175";
+const ADMIN_CHAT_ID = process.env.ADMIN_CHAT_ID || "-1003087958891";
 
 interface Relative {
   full_name: string;
@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
 
     // Получение pending-заявок (ограничено count)
     const [pendingRows] = await pool.query<Booking[]>(
-      "SELECT id, visit_type, created_at, relatives, telegram_chat_id, colony FROM bookings WHERE status = 'pending' AND colony != 5 ORDER BY created_at ASC LIMIT ?",
+      "SELECT id, visit_type, created_at, relatives, telegram_chat_id, colony FROM bookings WHERE status = 'pending' AND colony == 5 ORDER BY created_at ASC LIMIT ?",
       [count]
     );
 
