@@ -6,13 +6,12 @@ import axios from "axios";
 import { RowDataPacket } from "mysql2/promise";
 
 const BOT_TOKEN = "8373923696:AAHxWLeCqoO0I-ZCgNCgn6yJTi6JJ-wOU3I";
-const ADMIN_CHAT_ID = "-1003087958891";
+// const ADMIN_CHAT_ID = "-1003087958891";
 
-interface Relative {
-  full_name: string;
-  passport: string;
-}
-
+// interface Relative {
+//   full_name: string;
+//   passport: string;
+// }
 interface BookingRow extends RowDataPacket {
   visit_type: string;
   prisoner_name: string;
@@ -54,25 +53,25 @@ export async function POST(req: NextRequest) {
       [visitType, bookingId]
     );
 
-    const relatives: Relative[] = JSON.parse(rows[0].relatives);
-    const relativeName = relatives[0]?.full_name || "N/A";
+    // const relatives: Relative[] = JSON.parse(rows[0].relatives);
+    // const relativeName = relatives[0]?.full_name || "N/A";
 
-    const messageGroup = `
-📝 Ariza yangilandi. Nomer: ${bookingId} 
-👤 Arizachi: ${relativeName}
-📅 Berilgan sana: ${new Date(rows[0].created_at).toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", year: "numeric" })}
-⏲️ Yangi tur: ${approvedDays}-kunlik
-🔵 Holat: Yangilangan
-`;
+//     const messageGroup = `
+// 📝 Ariza yangilandi. Nomer: ${bookingId} 
+// 👤 Arizachi: ${relativeName}
+// 📅 Berilgan sana: ${new Date(rows[0].created_at).toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", year: "numeric" })}
+// ⏲️ Yangi tur: ${approvedDays}-kunlik
+// 🔵 Holat: Yangilangan
+// `;
 
     const messageBot = `
 📝 Sizning arizangiz №${bookingId} yangilandi. Tasdiqlangan kunlar: ${approvedDays}
 `;
 
-    await axios.post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-      chat_id: ADMIN_CHAT_ID,
-      text: messageGroup,
-    });
+    // await axios.post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+    //   chat_id: ADMIN_CHAT_ID,
+    //   text: messageGroup,
+    // });
 
     if (rows[0].telegram_chat_id) {
       await axios.post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
