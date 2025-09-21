@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
     startDate.setHours(0, 0, 0, 0);
     const startDateStr = startDate.toISOString().slice(0, 19).replace("T", " ");
 
-    const [settingsRows] = await pool.query<RowDataPacket[]>("SELECT value FROM settings WHERE `key` = 'rooms_count'");
+    const [settingsRows] = await pool.query<RowDataPacket[]>("SELECT value FROM settings WHERE `key` = 'rooms_count5'");
     const rooms = Number(settingsRows[0]?.value) || 10;
     let assignedRoomId: number | null = null;
 

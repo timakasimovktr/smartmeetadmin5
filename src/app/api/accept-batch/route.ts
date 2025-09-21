@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
 
     // Чтение количества комнат из settings
     const [settingsRows] = await pool.query<SettingsRow[]>(
-      "SELECT value FROM settings WHERE `key` = 'rooms_count'"
+      "SELECT value FROM settings WHERE `key` = 'rooms_count5'"
     );
     const rooms = Number(settingsRows[0]?.value) || 10;
     console.log("Rooms count from DB:", rooms); // Лог: кол-во комнат из БД

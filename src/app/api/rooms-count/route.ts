@@ -10,7 +10,7 @@ interface SettingsRow extends RowDataPacket {
 
 export async function GET() {
   try {
-    const [rows] = await pool.query<SettingsRow[]>("SELECT value FROM settings WHERE `key` = 'rooms_count'");
+    const [rows] = await pool.query<SettingsRow[]>("SELECT value FROM settings WHERE `key` = 'rooms_count5'");
     const count = rows[0]?.value ? Number(rows[0].value) : 0;
     return NextResponse.json({ count });
   } catch (err) {
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "count должен быть неотрицательным числом" }, { status: 400 });
     }
     await pool.query(
-      "INSERT INTO settings (`key`, `value`) VALUES ('rooms_count', ?) ON DUPLICATE KEY UPDATE `value` = ?",
+      "INSERT INTO settings (`key`, `value`) VALUES ('rooms_count5', ?) ON DUPLICATE KEY UPDATE `value` = ?",
       [count, count]
     );
     return NextResponse.json({ success: true });
