@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
     }
 
     const [rows] = await pool.query<Booking[]>(
-      "SELECT visit_type, prisoner_name, created_at, relatives, telegram_chat_id FROM bookings WHERE id = ?",
+      "SELECT visit_type, prisoner_name, created_at, relatives, telegram_chat_id FROM bookings5 WHERE id = ?",
       [bookingId]
     );
 
@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
         const dayEnd = day.toISOString().slice(0, 10) + " 23:59:59";
 
         const [occupiedRows] = await pool.query<RowDataPacket[]>(
-          "SELECT COUNT(*) as cnt FROM bookings WHERE status = 'approved' AND room_id = ? AND start_datetime <= ? AND end_datetime >= ?",
+          "SELECT COUNT(*) as cnt FROM bookings5 WHERE status = 'approved' AND room_id = ? AND start_datetime <= ? AND end_datetime >= ?",
           [roomId, dayEnd, dayStart]
         );
 
@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
     }
 
     const [result] = await pool.query(
-      `UPDATE bookings 
+      `UPDATE bookings5 
        SET status = 'approved', 
            start_datetime = ?, 
            end_datetime = DATE_ADD(?, INTERVAL ? DAY),

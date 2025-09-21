@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
 
     // Получение pending-заявок (ограничено count)
     const [pendingRows] = await pool.query<Booking[]>(
-      "SELECT id, visit_type, created_at, relatives, telegram_chat_id, colony FROM bookings WHERE status = 'pending' AND colony = 5 ORDER BY created_at ASC LIMIT ?",
+      "SELECT id, visit_type, created_at, relatives, telegram_chat_id, colony FROM bookings5 WHERE status = 'pending' AND colony = 5 ORDER BY created_at ASC LIMIT ?",
       [count]
     );
 
@@ -96,7 +96,7 @@ export async function POST(req: NextRequest) {
 
             // Проверка пересечения дат
             const [occupiedRows] = await pool.query<CountRow[]>(
-              `SELECT COUNT(*) as cnt FROM bookings 
+              `SELECT COUNT(*) as cnt FROM bookings5 
                WHERE status = 'approved' 
                AND room_id = ? 
                AND (
@@ -137,7 +137,7 @@ export async function POST(req: NextRequest) {
       const endDateStr = endStr.toISOString().slice(0, 10) + " 23:59:59";
 
       await pool.query(
-        "UPDATE bookings SET status = 'approved', start_datetime = ?, end_datetime = ?, room_id = ? WHERE id = ?",
+        "UPDATE bookings5 SET status = 'approved', start_datetime = ?, end_datetime = ?, room_id = ? WHERE id = ?",
         [startStr, endDateStr, assignedRoomId, booking.id]
       );
 

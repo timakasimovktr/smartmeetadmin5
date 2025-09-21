@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     }
 
     const [rows] = await pool.query<BookingRow[]>(
-      "SELECT prisoner_name, created_at, relatives, telegram_chat_id FROM bookings WHERE id = ?",
+      "SELECT prisoner_name, created_at, relatives, telegram_chat_id FROM bookings5 WHERE id = ?",
       [bookingId]
     );
 
@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     const booking = rows[0];
 
     const [result] = await pool.query(
-      "UPDATE bookings SET status = 'canceled', rejection_reason = ? WHERE id = ?",
+      "UPDATE bookings5 SET status = 'canceled', rejection_reason = ? WHERE id = ?",
       [reason, bookingId]
     );
 
